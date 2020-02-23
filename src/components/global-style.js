@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
 * {
 	padding: 0;
 	margin: 0;
@@ -18,8 +21,8 @@ body {
 		Arial, sans-serif;
 	font-size: 1.6rem;
 	/* Light theme */
-	/* background: rgb(226, 226, 226);
-	color: rgb(54, 53, 55); */
+	background: ${({ theme }) => theme.body.background};
+	color: ${({ theme }) => theme.body.color};
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
@@ -37,3 +40,4 @@ a {
 	justify-content: space-between;
 	flex-direction: column;
 }
+`;

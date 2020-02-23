@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useContext } from 'react';
-import { ThemeContext } from '../context/theme-context';
-import Img from './Img';
+import { ReactComponent as SunIcon } from '../Assets/icons/sun.svg';
+import { ReactComponent as MoonIcon } from '../Assets/icons/moon.svg';
+import themes from '../themes';
 
-const StyledButton = styled.button`
+const Btn = styled.button`
 	padding: 0.7rem 0.8rem 0.8rem;
 	border-radius: 3rem;
 	margin: 0 auto;
@@ -16,28 +16,31 @@ const StyledButton = styled.button`
 	border-width: 2px;
 	border-style: solid;
 	border-color: ${({ theme }) => theme.button.borderColor};
-	background-image: ${({ theme }) =>
-		`linear-gradient(${theme.button.background[0]} ,${theme.button.background[1]})`};
+	background-image: ${({ theme }) => theme.button.gradient};
 	overflow: hidden;
+
+	svg {
+		width: 4rem;
+		height: 4rem;
+		transition: all 0.3s linear;
+
+		&:first-child {
+			transform: ${({ theme }) =>
+				theme === themes.light ? 'translateY(0)' : 'translateY(120%)'};
+		}
+		&:last-child {
+			transform: ${({ theme }) =>
+				theme === themes.light ? 'translateY(-120%)' : 'translateY(0)'};
+		}
+	}
 `;
 
-const Button = () => {
-	const { theme, toggleTheme } = useContext(ThemeContext);
+const Button = ({ toggleTheme }) => {
 	return (
-		<StyledButton theme={theme} onClick={toggleTheme}>
-			<Img
-				animation="move-down"
-				theme={theme}
-				src="https://image.flaticon.com/icons/svg/1164/1164954.svg"
-				alt="Sun free icon"
-			/>
-			<Img
-				animation="move-up"
-				theme={theme}
-				src="https://image.flaticon.com/icons/svg/2033/2033921.svg"
-				alt="Moon free icon"
-			/>
-		</StyledButton>
+		<Btn onClick={toggleTheme}>
+			<SunIcon />
+			<MoonIcon />
+		</Btn>
 	);
 };
 

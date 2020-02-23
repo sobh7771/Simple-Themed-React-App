@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeContext, themes } from '../context/theme-context';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import themes from '../themes';
+import { GlobalStyle } from './global-style';
 import Heading from './Heading';
 import Button from './Button';
-import Footer from './Footer';
+import Footer from './layout/Footer';
+import { useState } from 'react';
 
 const App = () => {
 	const [theme, setTheme] = useState(themes.light);
@@ -13,21 +16,15 @@ const App = () => {
 		);
 	};
 
-	useEffect(() => {
-		const { background, color } = theme.body;
-
-		document.body.style.backgroundColor = background;
-		document.body.style.color = color;
-	});
-
 	return (
-		<ThemeContext.Provider value={{ theme, toggleTheme }}>
+		<ThemeProvider theme={theme}>
+			<GlobalStyle />
 			<div>
-				<Button />
+				<Button toggleTheme={toggleTheme} />
 				<Heading />
 			</div>
 			<Footer />
-		</ThemeContext.Provider>
+		</ThemeProvider>
 	);
 };
 
