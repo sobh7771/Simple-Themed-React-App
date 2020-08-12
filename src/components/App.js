@@ -1,27 +1,33 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import themes from '../themes';
+// import themes from '../themes';
 import { GlobalStyle } from './global-style';
-import Heading from './Heading';
+import Header from './Header';
 import Button from './Button';
 import Footer from './layout/Footer';
 import { useState } from 'react';
+import themes from '../themes';
+import { useEffect } from 'react';
 
 const App = () => {
-	const [theme, setTheme] = useState(themes.light);
+	const [theme, setTheme] = useState(
+		() => localStorage.getItem('theme') || 'light'
+	);
 
 	const toggleTheme = () => {
-		setTheme(prevTheme =>
-			prevTheme === themes.light ? themes.dark : themes.light
-		);
+		setTheme((theme) => (theme === 'light' ? 'dark' : 'light'));
 	};
 
+	useEffect(() => {
+		localStorage.setItem('theme', theme);
+	}, [theme]);
+
 	return (
-		<ThemeProvider theme={theme}>
+		<ThemeProvider theme={theme === 'light' ? themes.light : themes.dark}>
 			<GlobalStyle />
 			<div>
 				<Button toggleTheme={toggleTheme} />
-				<Heading />
+				<Header />
 			</div>
 			<Footer />
 		</ThemeProvider>

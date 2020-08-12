@@ -4,7 +4,7 @@ import { ReactComponent as SunIcon } from '../Assets/icons/sun.svg';
 import { ReactComponent as MoonIcon } from '../Assets/icons/moon.svg';
 import themes from '../themes';
 
-const Btn = styled.button`
+const StyledButton = styled.button`
 	padding: 0.7rem 0.8rem 0.8rem;
 	border-radius: 3rem;
 	margin: 0 auto;
@@ -37,10 +37,10 @@ const Btn = styled.button`
 
 const Button = ({ toggleTheme }) => {
 	return (
-		<Btn onClick={toggleTheme}>
+		<StyledButton onClick={toggleTheme}>
 			<SunIcon />
 			<MoonIcon />
-		</Btn>
+		</StyledButton>
 	);
 };
 
